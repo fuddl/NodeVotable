@@ -16,59 +16,57 @@
  * You should have received a copy of the GNU General Public License
  * along with JVotable.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-define([
-    "./utils", 
-    "./abstractNode", 
-    "./constants"
-], function(Utils, AbstractNode, Constants) {
 
-    /**
-     * Construct the Fieldref object.
-     *
-     * @example <caption>Fieldref schema</caption>
-     * {@lang xml}
-     *  <xs:complexType name="FieldRef">
-     *      <xs:attribute name="ref" type="xs:IDREF" use="required"/>
-     *      <xs:attribute name="ucd"  type="ucdType"/>
-     *      <xs:attribute name="utype" type="xs:string"/>
-     *  </xs:complexType>
-     *
-     * @param {NodeList} childNode the FieldRef node
-     * @exports Fieldref
-     * @augments AbstractNode
-     * @constructor
-     * @author Jean-Christophe Malapert
-     */
-    var Fieldref = function(childNode) {
-        AbstractNode.prototype.constructor.call(this, childNode, Constants.TAG.FIELDref);
-    };
+const Utils = require("./utils");
+const AbstractNode = require("./abstractNode");
+const Constants = require("./constants");
 
-    Utils.inherits(AbstractNode , Fieldref );
+/**
+ * Construct the Fieldref object.
+ *
+ * @example <caption>Fieldref schema</caption>
+ * {@lang xml}
+ *  <xs:complexType name="FieldRef">
+ *      <xs:attribute name="ref" type="xs:IDREF" use="required"/>
+ *      <xs:attribute name="ucd"  type="ucdType"/>
+ *      <xs:attribute name="utype" type="xs:string"/>
+ *  </xs:complexType>
+ *
+ * @param {NodeList} childNode the FieldRef node
+ * @exports Fieldref
+ * @augments AbstractNode
+ * @constructor
+ * @author Jean-Christophe Malapert
+ */
+var Fieldref = function(childNode) {
+    AbstractNode.prototype.constructor.call(this, childNode, Constants.TAG.FIELDref);
+};
 
-    /**
-     * Returns the ref value.
-     * this attribute is required.
-     * @returns {!String} the ref value
-     */
-    Fieldref.prototype.ref = function() {
-        return this.attributes["ref"];
-    };
+Utils.inherits(AbstractNode , Fieldref );
 
-    /**
-     * Returns the ucd value.
-     * @returns {?String} the ucd value or null when no ucd attribute.
-     */
-    Fieldref.prototype.ucd = function() {
-        return this.attributes["ucd"];
-    };
+/**
+ * Returns the ref value.
+ * this attribute is required.
+ * @returns {!String} the ref value
+ */
+Fieldref.prototype.ref = function() {
+    return this.attributes["ref"];
+};
 
-    /**
-     * Returns the utype value.
-     * @returns {?String} the utype value or null when no utype attribute.
-     */
-    Fieldref.prototype.utype = function() {
-        return this.attributes["utype"];
-    };
+/**
+ * Returns the ucd value.
+ * @returns {?String} the ucd value or null when no ucd attribute.
+ */
+Fieldref.prototype.ucd = function() {
+    return this.attributes["ucd"];
+};
 
-    return Fieldref;
-});
+/**
+ * Returns the utype value.
+ * @returns {?String} the utype value or null when no utype attribute.
+ */
+Fieldref.prototype.utype = function() {
+    return this.attributes["utype"];
+};
+
+module.exports = Fieldref;

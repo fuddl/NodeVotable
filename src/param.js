@@ -16,44 +16,43 @@
  * You should have received a copy of the GNU General Public License
  * along with JVotable.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-define([
-    "./utils",
-    "./field", 
-    "./constants"
-], function(Utils, Field, Constants) {
 
-    /**
-     * Constructs the Param object.
-     *
-     * @example <caption>Param schema</caption>
-     * {@lang xml}
-     *  <xs:complexType name="Param">
-     *      <xs:complexContent>
-     *          <xs:extension base="Field">
-     *              <xs:attribute name="value" type="xs:string" use="required"/>
-     *          </xs:extension>
-     *      </xs:complexContent>
-     *  </xs:complexType>
-     *
-     * @param {NodeList} childNode the Param node
-     * @exports Param
-     * @augments Field
-     * @constructor
-     * @author Jean-Christophe Malapert
-     */
-    var Param = function(childNode) {
-        Field.prototype.constructor.call(this, childNode, Constants.TAG.PARAM);
-    };
+const Utils = require("./utils");
+const AbstractNode = require("./abstractNode");
+const Field = require("./field");
+const Constants = require("./constants");
 
-    Utils.inherits(Field , Param );
+/**
+ * Constructs the Param object.
+ *
+ * @example <caption>Param schema</caption>
+ * {@lang xml}
+ *  <xs:complexType name="Param">
+ *      <xs:complexContent>
+ *          <xs:extension base="Field">
+ *              <xs:attribute name="value" type="xs:string" use="required"/>
+ *          </xs:extension>
+ *      </xs:complexContent>
+ *  </xs:complexType>
+ *
+ * @param {NodeList} childNode the Param node
+ * @exports Param
+ * @augments Field
+ * @constructor
+ * @author Jean-Christophe Malapert
+ */
+var Param = function(childNode) {
+    Field.prototype.constructor.call(this, childNode, Constants.TAG.PARAM);
+};
 
-    /**
-     * Returns the value value.
-     * @returns {!String} the value value or null when no value attribute.
-     */
-    Param.prototype.value = function() {
-        return this.attributes["value"];
-    };
+Utils.inherits(Field , Param);
 
-    return Param;
-});
+/**
+ * Returns the value value.
+ * @returns {!String} the value value or null when no value attribute.
+ */
+Param.prototype.value = function() {
+    return this.attributes["value"];
+};
+
+module.exports = Param;

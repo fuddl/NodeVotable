@@ -17,74 +17,71 @@
  * along with JVotable.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 
-define(function() {
+/**
+ * Cache system for VOTable.
+ * @exports Cache
+ * @constructor
+ * @author Jean-Christophe Malapert
+ */
+var Cache = function () {
+    this.nodeID = {};
+    this.nodeName = {};
+    this.warnings = [];
+};
 
-    /**
-     * Cache system for VOTable.
-     * @exports Cache
-     * @constructor
-     * @author Jean-Christophe Malapert
-     */
-    var Cache = function () {
-        this.nodeID = {};
-        this.nodeName = {};
-        this.warnings = [];
-    };
+/**
+ * Returns the cache of all nodes having an attribute ID.
+ * @returns {Object.<String, AbstractNode>} the cache
+ */
+Cache.prototype.getEltsByID = function() {
+    return this.nodeID;
+};
 
-    /**
-     * Returns the cache of all nodes having an attribute ID.
-     * @returns {Object.<String, AbstractNode>} the cache
-     */
-    Cache.prototype.getEltsByID = function() {
-        return this.nodeID;
-    };
+/**
+ * Returns the cache of all nodes having an attribute name.
+ * @returns {Object.<String, AbstractNode[]>} the cache
+ */
+Cache.prototype.getEltsByName = function() {
+    return this.nodeName;
+};
 
-    /**
-     * Returns the cache of all nodes having an attribute name.
-     * @returns {Object.<String, AbstractNode[]>} the cache
-     */
-    Cache.prototype.getEltsByName = function() {
-        return this.nodeName;
-    };
+/**
+ * Returns the warnings.
+ * @returns {String[]} the warnings
+ */
+Cache.prototype.getWarnings = function() {
+    return this.warnings;
+};
 
-    /**
-     * Returns the warnings.
-     * @returns {String[]} the warnings
-     */
-    Cache.prototype.getWarnings = function() {
-        return this.warnings;
-    };
+/**
+ * Add an entry to the cache.
+ * @param {String} id the identifier of the VOTable element
+ * @param {AbstractNode} node VOTable element
+ */
+Cache.prototype.addEntryID = function(id, node) {
+    this.nodeID[id] = node;
+};
 
-    /**
-     * Add an entry to the cache.
-     * @param {String} id the identifier of the VOTable element
-     * @param {AbstractNode} node VOTable element
-     */
-    Cache.prototype.addEntryID = function(id, node) {
-        this.nodeID[id] = node;
-    };
+/**
+ * Add an entry to the cache.
+ * @param {String} name the identifier of the VOTable element
+ * @param {AbstractNode} node VOTable element
+ */
+Cache.prototype.addEntryName = function(name, node) {
+    if(this.nodeName.hasOwnProperty(name)) {
+        this.nodeName[name].push(node);
+    } else {
+        this.nodeName[name] = [];
+        this.nodeName[name].push(node);
+    }
+};
 
-    /**
-     * Add an entry to the cache.
-     * @param {String} name the identifier of the VOTable element
-     * @param {AbstractNode} node VOTable element
-     */
-    Cache.prototype.addEntryName = function(name, node) {
-        if(this.nodeName.hasOwnProperty(name)) {
-            this.nodeName[name].push(node);
-        } else {
-            this.nodeName[name] = [];
-            this.nodeName[name].push(node);
-        }
-    };
+/**
+ * Stores a new warning;
+ * @param warning warning
+ */
+Cache.prototype.addWarning = function(warning) {
+    this.warnings.push(warning);
+};
 
-    /**
-     * Stores a new warning;
-     * @param warning warning
-     */
-    Cache.prototype.addWarning = function(warning) {
-        this.warnings.push(warning);
-    };
-
-    return Cache;
-});
+module.exports = Cache;

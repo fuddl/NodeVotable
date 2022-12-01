@@ -16,49 +16,47 @@
  * You should have received a copy of the GNU General Public License
  * along with JVotable.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-define([
-    "./utils",
-    "./abstractNode", 
-    "./constants"
-], function(Utils, AbstractNode, Constants) {
 
-    /**
-     * Constructs the Max object
-     *
-     * @example <caption>Max schema</caption>
-     * {@lang xml}
-     *  <xs:complexType name="Max">
-     *      <xs:attribute name="value" type="xs:string" use="required"/>
-     *      <xs:attribute name="inclusive" type="yesno" default="yes"/>
-     *  </xs:complexType>
-     *
-     * @param {NodeList} childNode the Max node
-     * @exports Max
-     * @augments AbstractNode
-     * @constructor
-     * @author Jean-Christophe Malapert
-     */
-    var Max = function(childNode) {
-        AbstractNode.prototype.constructor.call(this, childNode, Constants.TAG.MAX);
-    };
+const Utils = require("./utils");
+const AbstractNode = require("./abstractNode");
+const Constants = require("./constants");
 
-    Utils.inherits(AbstractNode , Max );
+/**
+ * Constructs the Max object
+ *
+ * @example <caption>Max schema</caption>
+ * {@lang xml}
+ *  <xs:complexType name="Max">
+ *      <xs:attribute name="value" type="xs:string" use="required"/>
+ *      <xs:attribute name="inclusive" type="yesno" default="yes"/>
+ *  </xs:complexType>
+ *
+ * @param {NodeList} childNode the Max node
+ * @exports Max
+ * @augments AbstractNode
+ * @constructor
+ * @author Jean-Christophe Malapert
+ */
+var Max = function(childNode) {
+    AbstractNode.prototype.constructor.call(this, childNode, Constants.TAG.MAX);
+};
 
-    /**
-     * Returns the value value.
-     * @returns {!String} the value value.
-     */
-    Max.prototype.value = function() {
-        return this.attributes["value"];
-    };
+Utils.inherits(AbstractNode , Max );
 
-    /**
-     * Returns the inclusive value.
-     * @returns {?String} the inclusive value or null when no inclusive attribute.
-     */
-    Max.prototype.inclusive = function() {
-        return this.attributes["inclusive"];
-    };
+/**
+ * Returns the value value.
+ * @returns {!String} the value value.
+ */
+Max.prototype.value = function() {
+    return this.attributes["value"];
+};
 
-    return Max;
-});
+/**
+ * Returns the inclusive value.
+ * @returns {?String} the inclusive value or null when no inclusive attribute.
+ */
+Max.prototype.inclusive = function() {
+    return this.attributes["inclusive"];
+};
+
+module.exports = Max;

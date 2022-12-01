@@ -16,76 +16,74 @@
  * You should have received a copy of the GNU General Public License
  * along with JVotable.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-define([
-    "./utils",
-    "./abstractData",
-    "./stream", 
-    "./constants"
-], function(Utils, AbstractData, Stream, Constants) {
 
-    /**
-     * Constructs the Fits object.
-     *
-     * @example <caption>Fits schema</caption>
-     * {@lang xml}
-     *  <xs:complexType name="FITS">
-     *      <xs:sequence>
-     *          <xs:element name="STREAM" type="Stream"/>
-     *      </xs:sequence>
-     *      <xs:attribute name="extnum" type="xs:positiveInteger"/>
-     *  </xs:complexType>
-     *
-     * @param {NodeList} childNode the Fits node
-     * @exports Fits
-     * @augments AbstractData
-     * @constructor
-     * @author Jean-Christophe Malapert
-     */
-    var Fits = function(childNode) {
-        AbstractData.prototype.constructor.call(this, childNode, Constants.TAG.FITS);
-        var self = this;
-        this.stream = parseFits(self, childNode);
-    };
+const Utils = require("./utils");
+const Stream = require("./stream");
+const AbstractData = require("./abstractData");
+const Constants = require("./constants");
 
-    /**
-     * Parses the Fits node.
-     * @param {Fits} self Fits object          
-     * @param childNode the Fits node
-     * @returns {Stream} the stream
-     */
-    var parseFits = function(self, childNode) {
-        var stream;
-        for(var i = 0; childNode!=null && i< childNode.childNodes.length; i++){
-            var element = childNode.childNodes[i];
-            if (element.nodeType == 1) {
-                var nodeName = element.localName;
-                if (nodeName == Constants.TAG.STREAM) {
-                    stream = new Definitions(element);
-                } else {
-                    self.getCache().addWarning("unknown element "+nodeName+" in Fits node");
-                }
+/**
+ * Constructs the Fits object.
+ *
+ * @example <caption>Fits schema</caption>
+ * {@lang xml}
+ *  <xs:complexType name="FITS">
+ *      <xs:sequence>
+ *          <xs:element name="STREAM" type="Stream"/>
+ *      </xs:sequence>
+ *      <xs:attribute name="extnum" type="xs:positiveInteger"/>
+ *  </xs:complexType>
+ *
+ * @param {NodeList} childNode the Fits node
+ * @exports Fits
+ * @augments AbstractData
+ * @constructor
+ * @author Jean-Christophe Malapert
+ */
+var Fits = function(childNode) {
+    AbstractData.prototype.constructor.call(this, childNode, Constants.TAG.FITS);
+    var self = this;
+    this.stream = parseFits(self, childNode);
+};
+
+/**
+ * Parses the Fits node.
+ * @param {Fits} self Fits object          
+ * @param childNode the Fits node
+ * @returns {Stream} the stream
+ */
+var parseFits = function(self, childNode) {
+    var stream;
+    for(var i = 0; childNode!=null && i< childNode.childNodes.length; i++){
+        var element = childNode.childNodes[i];
+        if (element.nodeType == 1) {
+            var nodeName = element.localName;
+            if (nodeName == Constants.TAG.STREAM) {
+                stream = new Definitions(element);
+            } else {
+                self.getCache().addWarning("unknown element "+nodeName+" in Fits node");
             }
         }
-        return stream;
     }
+    return stream;
+}
 
-    Utils.inherits(AbstractData , Fits );
+Utils.inherits(AbstractData , Fits );
 
-    /**
-     * Returns the Stream object.
-     * @returns {!Stream} the Stream object.
-     */
-    Fits.prototype.getStream = function(){
-        return this.stream;
-    };
+/**
+ * Returns the Stream object.
+ * @returns {!Stream} the Stream object.
+ */
+Fits.prototype.getStream = function(){
+    return this.stream;
+};
 
-    /**
-     * Returns te extnum value.
-     * @returns {!String} the extnum value.
-     */
-    Fits.prototype.extnum = function(){
-        return this.attributes['extnum'];
-    };
+/**
+ * Returns te extnum value.
+ * @returns {!String} the extnum value.
+ */
+Fits.prototype.extnum = function(){
+    return this.attributes['extnum'];
+};
 
-    return Fits;
-});
+module.exports = Fits;

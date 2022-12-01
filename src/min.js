@@ -16,49 +16,47 @@
  * You should have received a copy of the GNU General Public License
  * along with JVotable.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-define([
-    "./utils",
-    "./abstractNode", 
-    "./constants"
-], function(Utils, AbstractNode, Constants) {
 
-    /**
-     * Construct a Min object.
-     *
-     * @example <caption>Min schema</caption>
-     * {@lang xml}
-     *   <xs:complexType name="Min">
-     *      <xs:attribute name="value" type="xs:string" use="required"/>
-     *      <xs:attribute name="inclusive" type="yesno" default="yes"/>
-     *   </xs:complexType>
-     *
-     * @param {NodeList} childNode the Min node
-     * @exports Min
-     * @augments AbstractNode
-     * @constructor
-     * @author Jean-Christophe Malapert
-     */
-    var Min = function(childNode) {
-        AbstractNode.prototype.constructor.call(this, childNode, Constants.TAG.MIN);
-    };
+const Utils = require("./utils");
+const AbstractNode = require("./abstractNode");
+const Constants = require("./constants");
 
-    Utils.inherits(AbstractNode , Min );
+/**
+ * Construct a Min object.
+ *
+ * @example <caption>Min schema</caption>
+ * {@lang xml}
+ *   <xs:complexType name="Min">
+ *      <xs:attribute name="value" type="xs:string" use="required"/>
+ *      <xs:attribute name="inclusive" type="yesno" default="yes"/>
+ *   </xs:complexType>
+ *
+ * @param {NodeList} childNode the Min node
+ * @exports Min
+ * @augments AbstractNode
+ * @constructor
+ * @author Jean-Christophe Malapert
+ */
+var Min = function(childNode) {
+    AbstractNode.prototype.constructor.call(this, childNode, Constants.TAG.MIN);
+};
 
-    /**
-     * Returns the value value.
-     * @returns {!String} the value value
-     */
-    Min.prototype.value = function() {
-        return this.attributes["value"];
-    };
+Utils.inherits(AbstractNode , Min );
 
-    /**
-     * Returns the inclusive value.
-     * @returns {?String} the inclusive value or null when no inclusive attribute.
-     */
-    Min.prototype.inclusive = function() {
-        return this.attributes["inclusive"];
-    };
+/**
+ * Returns the value value.
+ * @returns {!String} the value value
+ */
+Min.prototype.value = function() {
+    return this.attributes["value"];
+};
 
-    return Min;
-});
+/**
+ * Returns the inclusive value.
+ * @returns {?String} the inclusive value or null when no inclusive attribute.
+ */
+Min.prototype.inclusive = function() {
+    return this.attributes["inclusive"];
+};
+
+module.exports = Min;

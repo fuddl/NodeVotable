@@ -16,25 +16,23 @@
  * You should have received a copy of the GNU General Public License
  * along with JVotable.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-define([
-    "./utils", 
-    "./abstractNode"
-], function(Utils, AbstractNode) {
 
-    /**
-     * Stores the name of the data implementation
-     * @param {NodeList} childNode XML node
-     * @param {String} name name of the data implementation
-     * @exports AbstractData
-     * @augments AbstractNode
-     * @constructor
-     * @author Jean-Christophe Malapert
-     */
-    var AbstractData = function(childNode, name) {
-        AbstractNode.prototype.constructor.call(this, childNode, name);
-    };
+const Utils = require("./utils");
+const AbstractNode = require("./abstractData");
 
-    Utils.inherits(AbstractNode , AbstractData );
+/**
+ * Stores the name of the data implementation
+ * @param {NodeList} childNode XML node
+ * @param {String} name name of the data implementation
+ * @exports AbstractData
+ * @augments AbstractNode
+ * @constructor
+ * @author Jean-Christophe Malapert
+ */
+var AbstractData = function(childNode, name) {
+    AbstractNode.prototype.constructor.call(this, childNode, name);
+};
 
-    return AbstractData;
-});
+Utils.inherits(AbstractNode , AbstractData);
+
+module.exports = AbstractData;

@@ -16,58 +16,56 @@
  * You should have received a copy of the GNU General Public License
  * along with JVotable.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-define([
-    "./utils",
-    "./abstractNode", 
-    "./constants"
-], function(Utils, AbstractNode, Constants) {
 
-    /**
-     * Constructs the Paramref object.
-     *
-     * @example <caption>Paramref schema</caption>
-     * {@lang xml}
-     *  <xs:complexType name="ParamRef">
-     *      <xs:attribute name="ref" type="xs:IDREF" use="required"/>
-     *      <xs:attribute name="ucd"  type="ucdType"/>
-     *      <xs:attribute name="utype" type="xs:string"/>
-     *  </xs:complexType>
-     *
-     * @param {NodeList} childNode the ParamRef node
-     * @exports Paramref
-     * @augments AbstractNode
-     * @constructor
-     * @author Jean-Christophe Malapert
-     */
-    var Paramref = function(childNode) {
-        AbstractNode.prototype.constructor.call(this, childNode, Constants.TAG.PARAMref);
-    };
+const Utils = require("./utils");
+const AbstractNode = require("./abstractNode");
+const Constants = require("./constants");
 
-    Utils.inherits(AbstractNode , Paramref );
+/**
+ * Constructs the Paramref object.
+ *
+ * @example <caption>Paramref schema</caption>
+ * {@lang xml}
+ *  <xs:complexType name="ParamRef">
+ *      <xs:attribute name="ref" type="xs:IDREF" use="required"/>
+ *      <xs:attribute name="ucd"  type="ucdType"/>
+ *      <xs:attribute name="utype" type="xs:string"/>
+ *  </xs:complexType>
+ *
+ * @param {NodeList} childNode the ParamRef node
+ * @exports Paramref
+ * @augments AbstractNode
+ * @constructor
+ * @author Jean-Christophe Malapert
+ */
+var Paramref = function(childNode) {
+    AbstractNode.prototype.constructor.call(this, childNode, Constants.TAG.PARAMref);
+};
 
-    /**
-     * Returns the ref value.
-     * @returns {!String} the ref value
-     */
-    Paramref.prototype.ref = function() {
-        return this.attributes["ref"];
-    };
+Utils.inherits(AbstractNode , Paramref );
 
-    /**
-     * Returns the ucd value.
-     * @returns {?String} the ucd value or null when no ucd attribute.
-     */
-    Paramref.prototype.ucd = function() {
-        return this.attributes["ucd"];
-    };
+/**
+ * Returns the ref value.
+ * @returns {!String} the ref value
+ */
+Paramref.prototype.ref = function() {
+    return this.attributes["ref"];
+};
 
-    /**
-     * Returns the utype value.
-     * @returns {?String} the utype value or null when no value attribute.
-     */
-    Paramref.prototype.utype = function() {
-        return this.attributes["utype"];
-    };
+/**
+ * Returns the ucd value.
+ * @returns {?String} the ucd value or null when no ucd attribute.
+ */
+Paramref.prototype.ucd = function() {
+    return this.attributes["ucd"];
+};
 
-    return Paramref;
-});
+/**
+ * Returns the utype value.
+ * @returns {?String} the utype value or null when no value attribute.
+ */
+Paramref.prototype.utype = function() {
+    return this.attributes["utype"];
+};
+
+module.exports = Paramref;

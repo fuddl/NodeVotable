@@ -16,95 +16,93 @@
  * You should have received a copy of the GNU General Public License
  * along with JVotable.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-define([
-    "./utils",
-    "./abstractNode",
-    "./group",
-    "./param",
-    "./coosys", 
-    "./constants"], 
-    function (Utils, AbstractNode, Group, Param, Coosys, Constants) {
 
-    /**
-     * Constructs a Definitions object.
-     *
-     * @example <caption>Definitions schema</caption>
-     * {@lang xml}     
-     *  <xs:complexType name="Definitions">
-     *      <xs:choice minOccurs="0" maxOccurs="unbounded">
-     *          <xs:element name="COOSYS" type="CoordinateSystem"/>
-     *          <xs:element name="PARAM" type="Param"/>
-     *      </xs:choice>
-     *  </xs:complexType>
-     *  
-     * @param {NodeList} childNode the DEFINITIONS node
-     * @exports Definitions
-     * @augments AbstractNode
-     * @constructor
-     * @author Jean-Christophe Malapert
-     */
-    var Definitions = function (childNode) {
-        AbstractNode.prototype.constructor.call(this, childNode, Constants.TAG.DEFINITIONS);
-        var self = this;
-        var result = parseDefinitions(self, childNode);
-        this.coosys = result[0];
-        this.param = result[1];
-    };
+const Utils = require("./utils");
+const AbstractNode = require("./abstractNode");
+const Group = require("./group");
+const Param = require("./param");
+const Coosys = require("./coosys");
+const Constants = require("./constants");
 
-    /**
-     * Parses the DEFINITIONS node
-     * @param {Definitions} self Definitions object          
-     * @param {NodeList} childNode the DEFINITIONS node
-     * @returns {Object.<Coosys[],Param[]>} Returns coosyss, params
-     */
-    var parseDefinitions = function(self, childNode) {
-        var coosyss = [];
-        var params = [];
+/**
+ * Constructs a Definitions object.
+ *
+ * @example <caption>Definitions schema</caption>
+ * {@lang xml}     
+ *  <xs:complexType name="Definitions">
+ *      <xs:choice minOccurs="0" maxOccurs="unbounded">
+ *          <xs:element name="COOSYS" type="CoordinateSystem"/>
+ *          <xs:element name="PARAM" type="Param"/>
+ *      </xs:choice>
+ *  </xs:complexType>
+ *  
+ * @param {NodeList} childNode the DEFINITIONS node
+ * @exports Definitions
+ * @augments AbstractNode
+ * @constructor
+ * @author Jean-Christophe Malapert
+ */
+var Definitions = function (childNode) {
+    AbstractNode.prototype.constructor.call(this, childNode, Constants.TAG.DEFINITIONS);
+    var self = this;
+    var result = parseDefinitions(self, childNode);
+    this.coosys = result[0];
+    this.param = result[1];
+};
 
-        for (var i = 0; childNode!=null && i < childNode.childNodes.length; i++) {
-            var element = childNode.childNodes[i];
-            if (element.nodeType == 1) {
-                var nodeName = element.localName;
-                switch (nodeName) {
-                    case Constants.TAG.COOSYS:
-                        coosyss.push(new Coosys(element));
-                        break;
-                    case Constants.TAG.PARAM:
-                        params.push(new Param(element));
-                        break;
-                    default:
-                        self.getCache().addWarning("unknown element "+nodeName+" in Definitions node");
-                }
-                if (nodeName == Constants.TAG.COOSYS) {
+/**
+ * Parses the DEFINITIONS node
+ * @param {Definitions} self Definitions object          
+ * @param {NodeList} childNode the DEFINITIONS node
+ * @returns {Object.<Coosys[],Param[]>} Returns coosyss, params
+ */
+var parseDefinitions = function(self, childNode) {
+    var coosyss = [];
+    var params = [];
+
+    for (var i = 0; childNode!=null && i < childNode.childNodes.length; i++) {
+        var element = childNode.childNodes[i];
+        if (element.nodeType == 1) {
+            var nodeName = element.localName;
+            switch (nodeName) {
+                case Constants.TAG.COOSYS:
                     coosyss.push(new Coosys(element));
-                } else if (nodeName == Constants.TAG.PARAM) {
+                    break;
+                case Constants.TAG.PARAM:
                     params.push(new Param(element));
-                } else {
+                    break;
+                default:
                     self.getCache().addWarning("unknown element "+nodeName+" in Definitions node");
+            }
+            if (nodeName == Constants.TAG.COOSYS) {
+                coosyss.push(new Coosys(element));
+            } else if (nodeName == Constants.TAG.PARAM) {
+                params.push(new Param(element));
+            } else {
+                self.getCache().addWarning("unknown element "+nodeName+" in Definitions node");
 
-                }
             }
         }
-        return [coosyss, params];
-    };
+    }
+    return [coosyss, params];
+};
 
-    Utils.inherits(AbstractNode , Definitions );
+Utils.inherits(AbstractNode , Definitions );
 
-    /**
-     * Returns the list of Coosys objects.
-     * @returns {?Coosys[]} the list of Coosys objects or 0 length when no Coosys node.
-     */
-    Definitions.prototype.getCoosyss = function() {
-        return this.coosys;
-    };
+/**
+ * Returns the list of Coosys objects.
+ * @returns {?Coosys[]} the list of Coosys objects or 0 length when no Coosys node.
+ */
+Definitions.prototype.getCoosyss = function() {
+    return this.coosys;
+};
 
-    /**
-     * Returns the list of Param objects.
-     * @returns {?Param[]} the list of Param objects or 0 length when no Param node.
-     */
-    Definitions.prototype.getParams = function() {
-        return this.param;
-    };
+/**
+ * Returns the list of Param objects.
+ * @returns {?Param[]} the list of Param objects or 0 length when no Param node.
+ */
+Definitions.prototype.getParams = function() {
+    return this.param;
+};
 
-    return Definitions;
-});
+module.exports = Definitions;

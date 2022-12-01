@@ -19,74 +19,69 @@
 /**
  * @version [VERSION_API]
  */
- define([
-    "./votable",
-    "./binary",
-    "./binary2",
-    "./coosys",
-    "./data",
-    "./definitions",
-    "./description",
-    "./field",
-    "./fieldref",
-    "./fits",
-    "./group",
-    "./info",
-    "./link",
-    "./max",
-    "./min",
-    "./option",
-    "./param",
-    "./paramref",
-    "./resource",
-    "./stream",
-    "./table",
-    "./tabledata",
-    "./td",
-    "./tr",
-    "./values",
-    "./constants"
-],function(Votable, Binary, Binary2, Coosys, Data, Definitions, Description, Field, Fieldref, Fits, Group, Info, Link,
-    Max, Min, Option, Param, Paramref,Resource, Stream, Table, TableData, Td, Tr, Values, Constants) {
+const Votable = require("./votable");
+const Binary = require("./binary");
+const Binary2 = require("./binary2");
+const Coosys = require("./coosys");
+const Data = require("./data");
+const Definitions = require("./definitions");
+const Description = require("./description");
+const Field = require("./field");
+const Fieldref = require("./fieldref");
+const Fits = require("./fits");
+const Group = require("./group");
+const Info = require("./info");
+const Link = require("./link");
+const Max = require("./max");
+const Min = require("./min");
+const Option = require("./option");
+const Param = require("./param");
+const Paramref = require("./paramref");
+const Resource = require("./resource");
+const Stream = require("./stream");
+const Table = require("./table");
+const TableData = require("./tabledata");
+const Td = require("./td");
+const Tr = require("./tr");
+const Values = require("./values");
+const Constants = require("./constants");
 
-    var JsVotable = {};
-    JsVotable.Constants = Constants;
-    JsVotable.Votable = Votable;
-    JsVotable.Binary = Binary;
-    JsVotable.Binary2 = Binary2;
-    JsVotable.Coosys = Coosys;
-    JsVotable.Data = Data;
-    JsVotable.Definitions = Definitions;
-    JsVotable.Description = Description;
-    JsVotable.Field = Field;
-    JsVotable.Fieldref = Fieldref;
-    JsVotable.Fits = Fits;
-    JsVotable.Group = Group;
-    JsVotable.Info = Info;
-    JsVotable.Link = Link;
-    JsVotable.Max = Max;
-    JsVotable.Min = Min;
-    JsVotable.Option = Option;
-    JsVotable.Param = Param;
-    JsVotable.Paramref = Paramref;
-    JsVotable.Resource = Resource;
-    JsVotable.Stream = Stream;
-    JsVotable.Table = Table;
-    JsVotable.TableData = TableData;
-    JsVotable.Td = Td;
-    JsVotable.Tr = Tr;
-    JsVotable.Values = Values;
-    JsVotable.version = {
-        major : 2,
-        minor : 0,
-        patch : 2,
-        date : "2019-02-15",
-        toString : function () {
-            return this.major+ "." + this.minor + "." + this.patch;
-        }
-    };
+var JsVotable = {};
 
-    window.JsVotable = JsVotable;
+JsVotable.Constants = Constants;
+JsVotable.Votable = Votable;
+JsVotable.Binary = Binary;
+JsVotable.Binary2 = Binary2;
+JsVotable.Coosys = Coosys;
+JsVotable.Data = Data;
+JsVotable.Definitions = Definitions;
+JsVotable.Description = Description;
+JsVotable.Field = Field;
+JsVotable.Fieldref = Fieldref;
+JsVotable.Fits = Fits;
+JsVotable.Group = Group;
+JsVotable.Info = Info;
+JsVotable.Link = Link;
+JsVotable.Max = Max;
+JsVotable.Min = Min;
+JsVotable.Option = Option;
+JsVotable.Param = Param;
+JsVotable.Paramref = Paramref;
+JsVotable.Resource = Resource;
+JsVotable.Stream = Stream;
+JsVotable.Table = Table;
+JsVotable.TableData = TableData;
+JsVotable.Td = Td;
+JsVotable.Tr = Tr;
+JsVotable.Values = Values;
+JsVotable.version = {
+    major : 2,
+    minor : 0,
+    patch : 2,
+    date : "2019-02-15",
+    toString : function () {
+        return this.major+ "." + this.minor + "." + this.patch;
+    }
+};
 
-    return JsVotable;
-});
+module.exports = JsVotable;

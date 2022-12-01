@@ -16,84 +16,82 @@
  * You should have received a copy of the GNU General Public License
  * along with JVotable.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-define([
-    "./utils",
-    "./abstractNode", 
-    "./constants"
-], function(Utils, AbstractNode, Constants) {
 
-    /**
-     * Constructs the Option object.
-     *
-     * @example <caption>Option schema</caption>
-     * {@lang xml}     
-     *  <xs:complexType name="Option">
-     *      <xs:sequence>
-     *          <xs:element name="OPTION" type="Option" minOccurs="0" maxOccurs="unbounded"/>
-     *      </xs:sequence>
-     *      <xs:attribute name="name" type="xs:token"/>
-     *      <xs:attribute name="value" type="xs:string" use="required"/>
-     *  </xs:complexType>
-     *
-     * @param {NodeList} childNode the Option node
-     * @exports Option
-     * @augments AbstractNode
-     * @constructor
-     * @author Jean-Christophe Malapert
-     */
-    var Option = function(childNode) {
-        AbstractNode.prototype.constructor.call(this, childNode, Constants.TAG.OPTION);
-        var self = this;
-        this.options = parseOptionTag(self, childNode);
-    };
+const Utils = require("./utils");
+const AbstractNode = require("./abstractNode");
+const Constants = require("./constants");
 
-    /**
-     * Parses the Option node.
-     * @param {Option} self Option object          
-     * @param childNode the option node.
-     * @returns {Option[]} the list of options
-     */
-    var parseOptionTag = function(self, childNode) {
-        var options = [];
-        for(var i = 0; childNode!=null && i< childNode.childNodes.length; i++){
-            var element = childNode.childNodes[i];
-            if (element.nodeType == 1) {
-                var nodeName = element.localName;
-                if (nodeName == Constants.TAG.OPTION) {
-                    options.push(new Option(element));
-                }  else {
-                    self.getCache().addWarning("unknown element "+nodeName+" in Option node");
-                }
+/**
+ * Constructs the Option object.
+ *
+ * @example <caption>Option schema</caption>
+ * {@lang xml}     
+ *  <xs:complexType name="Option">
+ *      <xs:sequence>
+ *          <xs:element name="OPTION" type="Option" minOccurs="0" maxOccurs="unbounded"/>
+ *      </xs:sequence>
+ *      <xs:attribute name="name" type="xs:token"/>
+ *      <xs:attribute name="value" type="xs:string" use="required"/>
+ *  </xs:complexType>
+ *
+ * @param {NodeList} childNode the Option node
+ * @exports Option
+ * @augments AbstractNode
+ * @constructor
+ * @author Jean-Christophe Malapert
+ */
+var Option = function(childNode) {
+    AbstractNode.prototype.constructor.call(this, childNode, Constants.TAG.OPTION);
+    var self = this;
+    this.options = parseOptionTag(self, childNode);
+};
+
+/**
+ * Parses the Option node.
+ * @param {Option} self Option object          
+ * @param childNode the option node.
+ * @returns {Option[]} the list of options
+ */
+var parseOptionTag = function(self, childNode) {
+    var options = [];
+    for(var i = 0; childNode!=null && i< childNode.childNodes.length; i++){
+        var element = childNode.childNodes[i];
+        if (element.nodeType == 1) {
+            var nodeName = element.localName;
+            if (nodeName == Constants.TAG.OPTION) {
+                options.push(new Option(element));
+            }  else {
+                self.getCache().addWarning("unknown element "+nodeName+" in Option node");
             }
         }
-        return options;
-    };
+    }
+    return options;
+};
 
-    Utils.inherits(AbstractNode , Option );
+Utils.inherits(AbstractNode , Option );
 
-    /**
-     * Returns the name value.
-     * @returns {?String} the name value or null when no name attribute.
-     */
-    Option.prototype.name = function() {
-        return this.attributes["name"];
-    };
+/**
+ * Returns the name value.
+ * @returns {?String} the name value or null when no name attribute.
+ */
+Option.prototype.name = function() {
+    return this.attributes["name"];
+};
 
-    /**
-     * Returns the value value.
-     * @returns {!String} the value value.
-     */
-    Option.prototype.value = function() {
-        return this.attributes["value"];
-    };
+/**
+ * Returns the value value.
+ * @returns {!String} the value value.
+ */
+Option.prototype.value = function() {
+    return this.attributes["value"];
+};
 
-    /**
-     * Returns the list of OPTION nodes.
-     * @returns {?Option[]} the list of OPTION nodes or 0 length when no OPTION node.
-     */
-    Option.prototype.getOptions = function() {
-        return this.options;
-    };
+/**
+ * Returns the list of OPTION nodes.
+ * @returns {?Option[]} the list of OPTION nodes or 0 length when no OPTION node.
+ */
+Option.prototype.getOptions = function() {
+    return this.options;
+};
 
-    return Option;
-});
+module.exports = Option;

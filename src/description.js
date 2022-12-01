@@ -16,40 +16,38 @@
  * You should have received a copy of the GNU General Public License
  * along with JVotable.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-define([
-    "./utils",
-    "./abstractNode", 
-    "./constants"
-], function(Utils, AbstractNode, Constants) {
 
-    /**
-     * Creates a Description object.
-     * @param {NodeList} childNode
-     * @exports Description
-     * @augments AbstractNode
-     * @constructor
-     * @author Jean-Christophe Malapert
-     */
-    var Description = function(childNode) {
-        AbstractNode.prototype.constructor.call(this, childNode, Constants.TAG.DESCRIPTION);
-        this.value;
-        var element = childNode.childNodes[0];
-        if (element!= null && element.nodeType == 3) {
-            this.value = (element.textContent == null) ? null : element.textContent.trim();
-        }
+const Utils = require("./utils");
+const AbstractNode = require("./abstractNode");
+const Constants = require("./constants");
 
-    };
+/**
+ * Creates a Description object.
+ * @param {NodeList} childNode
+ * @exports Description
+ * @augments AbstractNode
+ * @constructor
+ * @author Jean-Christophe Malapert
+ */
+var Description = function(childNode) {
+    AbstractNode.prototype.constructor.call(this, childNode, Constants.TAG.DESCRIPTION);
+    this.value;
+    var element = childNode.childNodes[0];
+    if (element!= null && element.nodeType == 3) {
+        this.value = (element.textContent == null) ? null : element.textContent.trim();
+    }
 
-    Utils.inherits(AbstractNode , Description);
+};
 
-    /**
-     * Returns the content.
-     * @returns {!String} the content
-     */
-    Description.prototype.getContent = function() {
-        return this.value;
-    };
+Utils.inherits(AbstractNode , Description);
+
+/**
+ * Returns the content.
+ * @returns {!String} the content
+ */
+Description.prototype.getContent = function() {
+    return this.value;
+};
 
 
-    return Description;
-});
+module.exports = Description;

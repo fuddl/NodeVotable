@@ -16,116 +16,115 @@
  * You should have received a copy of the GNU General Public License
  * along with JVotable.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-define([
-    "./utils",
-    "./abstractNode", 
-    "./constants"
-], function(Utils, AbstractNode, Constants) {
 
-    /**
-     * Constructs the Info object.
-     *
-     * @example <caption>Info schema</caption>
-     * {@lang xml}
-     * <xs:complexType name="Info">
-     *      <xs:simpleContent>
-     *          <xs:extension base="xs:string">
-     *              <xs:attribute name="ID" type="xs:ID"/>
-     *              <xs:attribute name="name"  type="xs:token" use="required"/>
-     *              <xs:attribute name="value" type="xs:string" use="required"/>
-     *              <xs:attribute name="unit"  type="xs:token"/>
-     *              <xs:attribute name="xtype" type="xs:token"/>
-     *              <xs:attribute name="ref"   type="xs:IDREF"/>
-     *              <xs:attribute name="ucd"   type="ucdType"/>
-     *              <xs:attribute name="utype" type="xs:string"/>
-     *          </xs:extension>
-     *      </xs:simpleContent>
-     *  </xs:complexType>
-     * @param {NodeList} childNode the Info node
-     * @exports Info
-     * @augments AbstractNode
-     * @constructor
-     * @author Jean-Christophe Malapert
-     */
-    var Info = function(childNode) {
-        AbstractNode.prototype.constructor.call(this, childNode, Constants.TAG.INFO);
-        var element = childNode.childNodes[0];
-        if (element!=null && element.nodeType == 3) {
-            this.val = (element.textContent == null) ? null : element.textContent.trim();
-        }
-    };
+const Utils = require("./utils");
+const AbstractNode = require("./abstractNode");
+const Constants = require("./constants");
 
-    /**
-     * Returns the name value.
-     * @returns {!String} the name value
-     */
-    Info.prototype.name = function() {
-        return this.attributes["name"];
-    };
 
-    /**
-     * Returns the value value.
-     * @returns {!String} the value value
-     */
-    Info.prototype.value = function() {
-        return this.attributes["value"];
-    };
+/**
+ * Constructs the Info object.
+ *
+ * @example <caption>Info schema</caption>
+ * {@lang xml}
+ * <xs:complexType name="Info">
+ *      <xs:simpleContent>
+ *          <xs:extension base="xs:string">
+ *              <xs:attribute name="ID" type="xs:ID"/>
+ *              <xs:attribute name="name"  type="xs:token" use="required"/>
+ *              <xs:attribute name="value" type="xs:string" use="required"/>
+ *              <xs:attribute name="unit"  type="xs:token"/>
+ *              <xs:attribute name="xtype" type="xs:token"/>
+ *              <xs:attribute name="ref"   type="xs:IDREF"/>
+ *              <xs:attribute name="ucd"   type="ucdType"/>
+ *              <xs:attribute name="utype" type="xs:string"/>
+ *          </xs:extension>
+ *      </xs:simpleContent>
+ *  </xs:complexType>
+ * @param {NodeList} childNode the Info node
+ * @exports Info
+ * @augments AbstractNode
+ * @constructor
+ * @author Jean-Christophe Malapert
+ */
+var Info = function(childNode) {
+    AbstractNode.prototype.constructor.call(this, childNode, Constants.TAG.INFO);
+    var element = childNode.childNodes[0];
+    if (element!=null && element.nodeType == 3) {
+        this.val = (element.textContent == null) ? null : element.textContent.trim();
+    }
+};
 
-    /**
-     * Returns the ID value.
-     * @returns {?String} the ID value or null when no ID attribute.
-     */
-    Info.prototype.ID = function() {
-        return this.attributes["ID"];
-    };
+/**
+ * Returns the name value.
+ * @returns {!String} the name value
+ */
+Info.prototype.name = function() {
+    return this.attributes["name"];
+};
 
-    /**
-     * Returns the unit value.
-     * @returns {?String} the unit value or null when no unit attribute.
-     */
-    Info.prototype.unit = function() {
-        return this.attributes["unit"];
-    };
+/**
+ * Returns the value value.
+ * @returns {!String} the value value
+ */
+Info.prototype.value = function() {
+    return this.attributes["value"];
+};
 
-    /**
-     * Returns the xtype value.
-     * @returns {?String} the xtype value or null when no xtype attribute.
-     */
-    Info.prototype.xtype = function() {
-        return this.attributes["xtype"];
-    };
+/**
+ * Returns the ID value.
+ * @returns {?String} the ID value or null when no ID attribute.
+ */
+Info.prototype.ID = function() {
+    return this.attributes["ID"];
+};
 
-    /**
-     * Returns the ref value.
-     * @returns {?String} the ref value or null when no ref attribute.
-     */
-    Info.prototype.ref = function() {
-        return this.attributes["ref"];
-    };
+/**
+ * Returns the unit value.
+ * @returns {?String} the unit value or null when no unit attribute.
+ */
+Info.prototype.unit = function() {
+    return this.attributes["unit"];
+};
 
-    /**
-     * Returns the ucd value.
-     * @returns {?String} the ucd value or null when no ucd attribute.
-     */
-    Info.prototype.ucd = function() {
-        return this.attributes["ucd"];
-    };
+/**
+ * Returns the xtype value.
+ * @returns {?String} the xtype value or null when no xtype attribute.
+ */
+Info.prototype.xtype = function() {
+    return this.attributes["xtype"];
+};
 
-    /**
-     * Returns the utype value.
-     * @returns {?String} the utype value or null when no utype attribute.
-     */
-    Info.prototype.utype = function() {
-        return this.attributes["utype"];
-    };
+/**
+ * Returns the ref value.
+ * @returns {?String} the ref value or null when no ref attribute.
+ */
+Info.prototype.ref = function() {
+    return this.attributes["ref"];
+};
 
-    /**
-     * Returns the content of INFO node.
-     * @returns {?String} the content of INFO node
-     */
-    Info.prototype.getContent = function() {
-        return this.val;
-    };
+/**
+ * Returns the ucd value.
+ * @returns {?String} the ucd value or null when no ucd attribute.
+ */
+Info.prototype.ucd = function() {
+    return this.attributes["ucd"];
+};
 
-    return Info;
-});
+/**
+ * Returns the utype value.
+ * @returns {?String} the utype value or null when no utype attribute.
+ */
+Info.prototype.utype = function() {
+    return this.attributes["utype"];
+};
+
+/**
+ * Returns the content of INFO node.
+ * @returns {?String} the content of INFO node
+ */
+Info.prototype.getContent = function() {
+    return this.val;
+};
+
+module.exports = Info;

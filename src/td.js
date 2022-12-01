@@ -16,66 +16,64 @@
  * You should have received a copy of the GNU General Public License
  * along with JVotable.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-define([
-    "./utils",
-    "./abstractNode", 
-    "./constants"
-], function(Utils, AbstractNode, Constants) {
 
-    /**
-     * Construct the Td object.
-     *
-     * @example <caption>Td schema</caption>
-     * {@lang xml}
-     *  <xs:complexType name="Td">
-     *      <xs:simpleContent>
-     *          <xs:extension base="xs:string">
-     *              <!-- xs:attribute name="ref" type="xs:IDREF"/ -->
-     *              <xs:annotation><xs:documentation>
-     *                  The 'encoding' attribute is added here to avoid
-     *                  problems of code generators which do not properly
-     *                  interpret the TR/TD structures.
-     *                  'encoding' was chosen because it appears in
-     *                  appendix A.5
-     *              </xs:documentation></xs:annotation>
-     *              <xs:attribute name="encoding" type="encodingType"/>
-     *          </xs:extension>
-     *      </xs:simpleContent>
-     *  </xs:complexType>
-     *
-     * @param {NodeList} childNode the Td node
-     * @exports Td
-     * @augments AbstractNode
-     * @param {string} options the value provided while parsing a base64 stream
-     * @constructor
-     * @author Jean-Christophe Malapert
-     */
-    var Td = function(childNode,options) {
-        AbstractNode.prototype.constructor.call(this, childNode, Constants.TAG.TD);
-        if (options == null) {
-            this.value = (childNode.textContent == null) ? "" : childNode.textContent.trim();
-        } else {
-            this.value = (options == null) ? "" : options.trim();
-        }
-    };
+const Utils = require("./utils");
+const AbstractNode = require("./abstractNode");
+const Constants = require("./constants");
 
-    Utils.inherits(AbstractNode , Td );
-
-    /**
-     * Returns the encoding value.
-     * @returns {?String} the encoding value or null when no encoding attribute.
-     */
-    Td.prototype.encoding = function() {
-        return this.attributes["encoding"];
-    };
-
-    /**
-     * Returns the content of the name.
-     * @returns {string} the content
-     */
-    Td.prototype.getContent = function() {
-        return this.value;
+/**
+ * Construct the Td object.
+ *
+ * @example <caption>Td schema</caption>
+ * {@lang xml}
+ *  <xs:complexType name="Td">
+ *      <xs:simpleContent>
+ *          <xs:extension base="xs:string">
+ *              <!-- xs:attribute name="ref" type="xs:IDREF"/ -->
+ *              <xs:annotation><xs:documentation>
+ *                  The 'encoding' attribute is added here to avoid
+ *                  problems of code generators which do not properly
+ *                  interpret the TR/TD structures.
+ *                  'encoding' was chosen because it appears in
+ *                  appendix A.5
+ *              </xs:documentation></xs:annotation>
+ *              <xs:attribute name="encoding" type="encodingType"/>
+ *          </xs:extension>
+ *      </xs:simpleContent>
+ *  </xs:complexType>
+ *
+ * @param {NodeList} childNode the Td node
+ * @exports Td
+ * @augments AbstractNode
+ * @param {string} options the value provided while parsing a base64 stream
+ * @constructor
+ * @author Jean-Christophe Malapert
+ */
+var Td = function(childNode,options) {
+    AbstractNode.prototype.constructor.call(this, childNode, Constants.TAG.TD);
+    if (options == null) {
+        this.value = (childNode.textContent == null) ? "" : childNode.textContent.trim();
+    } else {
+        this.value = (options == null) ? "" : options.trim();
     }
+};
 
-    return Td;
-});
+Utils.inherits(AbstractNode , Td );
+
+/**
+ * Returns the encoding value.
+ * @returns {?String} the encoding value or null when no encoding attribute.
+ */
+Td.prototype.encoding = function() {
+    return this.attributes["encoding"];
+};
+
+/**
+ * Returns the content of the name.
+ * @returns {string} the content
+ */
+Td.prototype.getContent = function() {
+    return this.value;
+}
+
+module.exports = Td;
